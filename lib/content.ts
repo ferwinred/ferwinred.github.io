@@ -22,6 +22,8 @@ export const ui = {
   demo: { es: "Demo", en: "Live demo" },
   trackLabel: { es: "Perfil", en: "Profile" },
   langLabel: { es: "Idioma", en: "Language" },
+  themeToDark: { es: "Activar modo oscuro", en: "Switch to dark mode" },
+  themeToLight: { es: "Activar modo claro", en: "Switch to light mode" },
 } satisfies Record<string, Bilingual>;
 
 export const hero: Record<Track, { eyebrow: string; h1a: Bilingual; h1b: Bilingual; lead: Bilingual; panel: string }> = {
