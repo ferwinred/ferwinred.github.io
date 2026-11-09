@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
   output: "export",
   images: { unoptimized: true },
   trailingSlash: true,
-  experimental: {
-    turbopack: false,
-  },
 };
 
 export default nextConfig;
