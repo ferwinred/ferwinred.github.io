@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Cómo la Industria 4.0 transforma la ingeniería de software: tecnologías emergentes, roles que crecen y retos de la transformación digital.">
+<meta name="author" content="Edwin Fernando Arias Arrieta">
+<link rel="icon" href="/icon.svg">
+<title>Industria 4.0 en Ingeniería de Software</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  /* Layout: plano técnico vertical — cinta de cabecera, luego bloques anotados sobre retícula de calco */
+  :root {
+    --paper: #f2efe8;
+    --ink: #16202b;
+    --ink-soft: #4f6073;
+    --rule: #cfc8ba;
+    --panel: #fbf9f5;
+    --blueprint: #1d3c53;
+    --signal: #c2561f;
+    --verde: #1f6f54;
+    --grid: rgba(29, 60, 83, .09);
+
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0f1821;
+      --ink: #e8e3d8;
+      --ink-soft: #9aabbc;
+      --rule: #2a3a4a;
+      --panel: #16222e;
+      --blueprint: #7fb3d5;
+      --signal: #ef8b50;
+      --verde: #5ec29b;
+      --grid: rgba(127, 179, 213, .10);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0f1821;
+    --ink: #e8e3d8;
+    --ink-soft: #9aabbc;
+    --rule: #2a3a4a;
+    --panel: #16222e;
+    --blueprint: #7fb3d5;
+    --signal: #ef8b50;
+    --verde: #5ec29b;
+    --grid: rgba(127, 179, 213, .10);
+    color-scheme: dark;
+  }
+
+  body {
+    background:
+      linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% 28px,
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 28px 100%,
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+  }
+
+  /* ---- cabecera ---- */
+  header.sheet {
+    border: 2px solid var(--ink);
+    background: var(--panel);
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .sheet-top {
+    padding: 22px clamp(18px, 4vw, 30px) 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  h1 {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(1.9rem, 5.6vw, 3.05rem);
+    line-height: 1.02;
+    letter-spacing: -.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--signal); }
+  .dek { max-width: 62ch; color: var(--ink-soft); margin: 0; }
+  .meta {
+    border-top: 1px solid var(--rule);
+    padding: 12px clamp(18px, 4vw, 30px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 26px;
+    font-family: var(--mono);
+    font-size: .74rem;
+    color: var(--ink-soft);
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  /* ---- definición ---- */
+  .definicion {
+    border-left: 4px solid var(--blueprint);
+    background: var(--panel);
+    padding: 18px clamp(16px, 3.5vw, 24px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .definicion p { margin: 0; max-width: 72ch; }
+  .pilares {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 10px;
+  }
+  .pilares li {
+    min-width: 0;
+    border: 1px solid var(--rule);
+    padding: 9px 11px;
+    font-family: var(--mono);
+    font-size: .76rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .pilares b { display: block; font-family: var(--body); font-size: .92rem; color: var(--ink); font-weight: 600; }
+
+  /* ---- bloques ---- */
+  section { display: flex; flex-direction: column; gap: 16px; }
+  .sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; border-bottom: 2px solid var(--ink); padding-bottom: 8px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 3px 8px;
+  }
+  h2 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 3.2vw, 1.6rem);
+    letter-spacing: -.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .sec-note { font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); margin-left: auto; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  .card { min-width: 0; background: var(--panel); border: 1px solid var(--rule); padding: 16px 16px 17px; display: flex; flex-direction: column; gap: 7px; }
+  .card h3 { font-family: var(--body); font-size: 1rem; font-weight: 600; margin: 0; }
+  .card p { margin: 0; font-size: .9rem; color: var(--ink-soft); }
+  .antes-despues { font-family: var(--mono); font-size: .72rem; display: flex; flex-direction: column; gap: 3px; border-top: 1px dashed var(--rule); padding-top: 8px; }
+  .antes-despues span::before { content: attr(data-k); color: var(--signal); margin-right: 7px; }
+
+  /* tecnologías */
+  .tech { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .chip { min-width: 0; border: 1px solid var(--rule); border-top: 3px solid var(--blueprint); background: var(--panel); padding: 13px 14px; display: flex; flex-direction: column; gap: 5px; }
+  .chip b { font-size: .95rem; }
+  .chip small { font-family: var(--mono); font-size: .7rem; color: var(--signal); letter-spacing: .06em; text-transform: uppercase; }
+  .chip p { margin: 0; font-size: .85rem; color: var(--ink-soft); }
+
+  /* roles */
+  .tabla-wrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .88rem; }
+  th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-family: var(--mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; }
+  td b { font-weight: 600; }
+  td small { display: block; color: var(--ink-soft); font-size: .82rem; }
+  tr:last-child td { border-bottom: 0; }
+  .dem { font-family: var(--mono); font-size: .72rem; white-space: nowrap; }
+  .dem.alta { color: var(--verde); }
+  .dem.media { color: var(--signal); }
+
+  /* retos */
+  .retos { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .retos li { min-width: 0; display: grid; grid-template-columns: 1fr; gap: 6px; border: 1px solid var(--rule); border-left: 4px solid var(--signal); background: var(--panel); padding: 13px 15px; }
+  .retos b { font-weight: 600; }
+  .retos p { margin: 0; font-size: .88rem; color: var(--ink-soft); }
+  .retos .resp { font-family: var(--mono); font-size: .75rem; color: var(--ink); }
+  .retos .resp::before { content: "respuesta →"; color: var(--verde); margin-right: 8px; }
+
+  footer { border-top: 1px solid var(--rule); padding-top: 16px; font-family: var(--mono); font-size: .72rem; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  footer a { color: inherit; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+<style>
+  :root { padding-block: 0; }
+  body { margin: 0; -webkit-text-size-adjust: 100%; }
+  img { max-width: 100%; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="sheet">
+    <div class="sheet-top">
+      <p class="eyebrow">Actividad 1 · Análisis de Industria 4.0 y transformación digital</p>
+      <h1>La Industria 4.0 reescribe el oficio del <em>ingeniero de software</em></h1>
+      <p class="dek">Qué cambia en la profesión cuando la fábrica, el banco y el hospital se vuelven sistemas de datos conectados: tecnologías que entran al día a día, roles que aparecen y obstáculos reales de la transformación digital.</p>
+    </div>
+    <div class="meta">
+      <span><b>Autor:</b> Edwin Fernando Arias Arrieta</span>
+      <span><b>Programa:</b> Ingeniería de Software · CUN</span>
+      <span><b>Asignatura:</b> Informática y Convergencia Tecnológica</span>
+      <span><b>Docente:</b> Yesid Díaz Gutiérrez</span>
+    </div>
+  </header>
+
+  <div class="definicion">
+    <p><b>Industria 4.0</b> es el nombre que recibió, en la agenda industrial alemana de 2011–2013, la cuarta ola de automatización: sistemas ciberfísicos que conectan máquinas, procesos y personas a través de datos en tiempo real, con capacidad de decidir sin intervención humana en cada paso. No es un conjunto de productos, es un cambio en dónde vive la inteligencia del proceso: pasa del operario y del plano a un modelo de software que lee sensores, aprende y actúa.</p>
+    <ul class="pilares">
+      <li><b>Interconexión</b>Máquinas, sensores y personas comparten un mismo bus de datos.</li>
+      <li><b>Transparencia</b>Cada evento físico deja una traza digital consultable.</li>
+      <li><b>Asistencia técnica</b>El sistema sugiere o ejecuta la decisión por el humano.</li>
+      <li><b>Decisión descentralizada</b>El borde (edge) decide sin esperar al centro.</li>
+    </ul>
+  </div>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">Impacto</span>
+      <h2>Cómo cambia la ingeniería de software</h2>
+      <span class="sec-note">de entregar código a operar sistemas</span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <h3>El dato deja de ser un subproducto</h3>
+        <p>Antes el software generaba registros para auditar. Ahora el flujo de datos <em>es</em> el producto: ingestión, calidad, linaje y gobierno entran al alcance del ingeniero.</p>
+        <div class="antes-despues">
+          <span data-k="antes">CRUD + reportes mensuales</span>
+          <span data-k="hoy">streaming, lakehouse, métricas vivas</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>El software sale del servidor</h3>
+        <p>Hay código en el sensor, en la pasarela de borde y en la nube. El ingeniero diseña para latencia, pérdida de conexión y actualización remota de miles de dispositivos.</p>
+        <div class="antes-despues">
+          <span data-k="antes">una app, un servidor</span>
+          <span data-k="hoy">edge + nube + dispositivo</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>La entrega se vuelve continua y medible</h3>
+        <p>Integración y despliegue continuos, infraestructura como código y observabilidad hacen que la calidad se demuestre con métricas de producción, no con una fase final de pruebas.</p>
+        <div class="antes-despues">
+          <span data-k="antes">release trimestral</span>
+          <span data-k="hoy">despliegue diario con rollback</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>La IA pasa a ser materia prima</h3>
+        <p>Modelos de lenguaje y de visión se integran como cualquier otra dependencia. El valor del ingeniero se desplaza hacia el diseño del sistema, la evaluación del modelo y el control de sus fallos.</p>
+        <div class="antes-despues">
+          <span data-k="antes">escribir cada función</span>
+          <span data-k="hoy">especificar, evaluar y acotar</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>Seguridad y cumplimiento se integran al diseño</h3>
+        <p>Un sistema conectado amplía la superficie de ataque y toca datos personales. La protección deja de ser un control final y entra en el diseño, junto con normas como la Ley 1581 de 2012 en Colombia.</p>
+        <div class="antes-despues">
+          <span data-k="antes">revisión al final</span>
+          <span data-k="hoy">seguridad desde el diseño</span>
+        </div>
+      </article>
+      <article class="card">
+        <h3>El equipo deja de ser solo técnico</h3>
+        <p>Se trabaja junto a operaciones, planta, finanzas o salud. Traducir un problema del negocio a un modelo de datos es hoy una competencia de ingeniería, no un extra.</p>
+        <div class="antes-despues">
+          <span data-k="antes">requisitos recibidos</span>
+          <span data-k="hoy">problema entendido en terreno</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">Tecnologías</span>
+      <h2>Tecnologías emergentes involucradas</h2>
+      <span class="sec-note">las que ya aparecen en proyectos reales</span>
+    </div>
+    <div class="tech">
+      <div class="chip"><small>Datos</small><b>Streaming y lakehouse</b><p>Apache Kafka, Spark Structured Streaming, dbt y formatos de tabla abierta para procesar eventos a medida que ocurren.</p></div>
+      <div class="chip"><small>Inteligencia</small><b>IA y aprendizaje automático</b><p>Modelos de lenguaje, visión por computador y mantenimiento predictivo integrados como servicios dentro del producto.</p></div>
+      <div class="chip"><small>Conectividad</small><b>IoT industrial y edge</b><p>Sensores, protocolos como MQTT y cómputo en el borde para decidir donde se genera el dato.</p></div>
+      <div class="chip"><small>Infraestructura</small><b>Nube, contenedores y IaC</b><p>AWS o Azure, Docker, Kubernetes y definiciones de infraestructura versionadas junto al código.</p></div>
+      <div class="chip"><small>Entrega</small><b>DevOps y observabilidad</b><p>Pipelines de CI/CD, pruebas automatizadas, trazas y métricas para sostener despliegues frecuentes.</p></div>
+      <div class="chip"><small>Simulación</small><b>Gemelos digitales</b><p>Réplicas virtuales de una planta o un proceso que permiten probar cambios antes de tocar el mundo físico.</p></div>
+      <div class="chip"><small>Confianza</small><b>Ciberseguridad y trazabilidad</b><p>Cifrado, gestión de identidad, arquitectura de confianza cero y registros distribuidos para cadenas de suministro.</p></div>
+      <div class="chip"><small>Cómputo</small><b>5G y capacidad emergente</b><p>Redes de baja latencia que habilitan control remoto en tiempo real; detrás, computación cuántica aún en exploración.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">Empleo</span>
+      <h2>Oportunidades laborales futuras</h2>
+      <span class="sec-note">roles que crecen desde la ingeniería de software</span>
+    </div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Rol</th><th>Qué resuelve</th><th>Base técnica</th><th>Demanda</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Ingeniero de datos</b></td>
+            <td><small>Construye las tuberías que llevan el dato crudo hasta métricas confiables.</small></td>
+            <td><small>Spark, Kafka, dbt, SQL, nube</small></td>
+            <td class="dem alta">▲ alta</td>
+          </tr>
+          <tr>
+            <td><b>Ingeniero de IA / MLOps</b></td>
+            <td><small>Lleva modelos a producción y vigila su desempeño con el tiempo.</small></td>
+            <td><small>Python, contenedores, evaluación de modelos</small></td>
+            <td class="dem alta">▲ alta</td>
+          </tr>
+          <tr>
+            <td><b>Ingeniero de plataforma / DevOps</b></td>
+            <td><small>Da a los equipos un camino seguro y repetible para desplegar.</small></td>
+            <td><small>Kubernetes, IaC, CI/CD, observabilidad</small></td>
+            <td class="dem alta">▲ alta</td>
+          </tr>
+          <tr>
+            <td><b>Especialista en ciberseguridad</b></td>
+            <td><small>Protege sistemas conectados y datos personales bajo norma.</small></td>
+            <td><small>Identidad, criptografía, análisis de riesgo</small></td>
+            <td class="dem alta">▲ alta</td>
+          </tr>
+          <tr>
+            <td><b>Desarrollador de soluciones IoT / edge</b></td>
+            <td><small>Conecta máquina y nube con software que tolera fallos de red.</small></td>
+            <td><small>C/C++, Python, MQTT, sistemas embebidos</small></td>
+            <td class="dem media">◆ media</td>
+          </tr>
+          <tr>
+            <td><b>Arquitecto de software en la nube</b></td>
+            <td><small>Define la estructura y el costo de sistemas distribuidos.</small></td>
+            <td><small>Diseño distribuido, FinOps, seguridad</small></td>
+            <td class="dem media">◆ media</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <span class="tag">Retos</span>
+      <h2>Retos de la transformación digital</h2>
+      <span class="sec-note">lo que frena los proyectos en la práctica</span>
+    </div>
+    <ul class="retos">
+      <li>
+        <b>Brecha de talento y obsolescencia de habilidades</b>
+        <p>La vida útil de una herramienta es más corta que la de una carrera. Quien no aprende de forma continua queda fuera del mercado aunque tenga experiencia.</p>
+        <span class="resp">formación permanente, certificaciones y proyectos propios verificables</span>
+      </li>
+      <li>
+        <b>Sistemas heredados que no se pueden apagar</b>
+        <p>La mayoría de empresas no parte de cero: conviven aplicaciones de hace quince años con servicios nuevos. Migrar sin detener la operación es el problema caro.</p>
+        <span class="resp">migración por fases, capas de integración y pruebas automatizadas</span>
+      </li>
+      <li>
+        <b>Calidad y gobierno del dato</b>
+        <p>Un modelo de IA o un tablero directivo valen lo que vale el dato que los alimenta. Sin reglas de calidad ni linaje, la automatización amplifica el error.</p>
+        <span class="resp">validaciones en la ingesta, cuarentena de registros y linaje documentado</span>
+      </li>
+      <li>
+        <b>Seguridad y protección de datos personales</b>
+        <p>Más dispositivos conectados es más superficie de ataque, y el tratamiento de datos está regulado (en Colombia, Ley 1581 de 2012 y su régimen de habeas data).</p>
+        <span class="resp">cifrado, mínimo privilegio, auditoría y privacidad desde el diseño</span>
+      </li>
+      <li>
+        <b>Resistencia cultural al cambio</b>
+        <p>La tecnología suele estar lista antes que la organización. Sin apoyo de la dirección ni acompañamiento a los equipos, la herramienta se compra y no se usa.</p>
+        <span class="resp">pilotos con resultados visibles, acompañamiento y métricas compartidas</span>
+      </li>
+      <li>
+        <b>Brecha digital y desigualdad de acceso</b>
+        <p>Conectividad e infraestructura desiguales en el país limitan qué tan lejos llega la digitalización, sobre todo fuera de las grandes ciudades.</p>
+        <span class="resp">soluciones que toleren baja conectividad y diseño accesible</span>
+      </li>
+      <li>
+        <b>Ética y uso responsable de la IA</b>
+        <p>Sesgo algorítmico, decisiones no explicables y desplazamiento de tareas humanas son riesgos que el ingeniero introduce o evita con sus decisiones de diseño.</p>
+        <span class="resp">evaluación de sesgos, trazabilidad de decisiones y supervisión humana</span>
+      </li>
+    </ul>
+  </section>
+
+  <footer>
+    <span>Referencias conceptuales: Kagermann, Wahlster &amp; Helbig (2013), <i>Recommendations for implementing the strategic initiative INDUSTRIE 4.0</i> · World Economic Forum, <i>Future of Jobs Report</i> · Comisión Europea, <i>DigComp 2.2 — Marco de competencias digitales</i> · Congreso de Colombia, Ley 1581 de 2012.</span>
+    <span>Elaborado para la Actividad de Conocimiento Aplicado (ACA) — Informática y Convergencia Tecnológica, CUN. Portafolio: ferwinred.github.io</span>
+  </footer>
+
+</div>
+</body>
+</html>
